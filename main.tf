@@ -1,25 +1,9 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.27"
-    }
-  }
+# resource "aws_instance" "ec2_instance" {
+#   ami=var.AMIS[var.AWS_REGION] 
+#   instance_type = "t2.micro"
+#   associate_public_ip_address = true
 
-  required_version = ">= 0.14.9"
-}
-
-#Provider profile and region in which all the resources will create
-provider "aws" {
-  profile = "default"
-  region  = "us-west-2"
-}
-
-#Resource to create s3 bucket
-resource "aws_s3_bucket" "demo-bucket"{
-  bucket = "ripbucket2941991"
-
-  tags = {
-    Name = "S3Bucket"
-  }
-}
+#   tags = {
+#     Name = "Terraform_test_ec2"
+#   }
+# }
