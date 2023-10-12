@@ -9,3 +9,8 @@ resource "aws_vpc" "provisionerVPC"{
         Name = "Terraform_test_ec2"
     }
 }
+
+resource "aws_vpc" "provisionerVPC" {
+  cidr_block = var.vpc_cidr
+  # ...
+}
