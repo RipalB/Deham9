@@ -1,13 +1,12 @@
 variable "region" {
   default = "us-west-2"
 }
+variable "cidr_blocks" {
+  default = "0.0.1.0/16"
+}
 
 provider "aws" {
   region  = "${var.region}"
-}
-
-variable "vpc_cidr"{
-    default = "10.0.1.0/24"
 }
 
 resource "aws_subnet" "public_subnet"{
