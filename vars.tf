@@ -1,13 +1,13 @@
 
 variable "AWS_ACCESS_KEY"{
-    description="AWS Access Key"
+    description="ASIAQVEAJAFDYYFWVRON"
 }
 variable "AWS_SECRET_KEY"{
-    description="AWS Access Key"
+    description="zF/RxoM1Zq2FniJa5wtgrzTrMRm7Er+WVvins2p0"
 }
 variable "AWS_REGION"{
     default="us-west-2"
-    description="AWS Region"
+    description="us-west-2"
 }
 # Network Mask - 255.255.255.0 Addresses Available - 256
 variable "vpc_cidr"{

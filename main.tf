@@ -124,7 +124,7 @@ resource "aws_security_group_rule" "all_egress_access"{
 resource "aws_instance" "provisioner-remoteVM"{
     ami = "ami-0d2017e886fc2c0ab"
     instance_type = var.instance_type
-    key_name = "terraform"
+    key_name = "terra"
     vpc_security_group_ids = [aws_security_group.dev_terraform_sg_allow_ssh_http.id]
     subnet_id = aws_subnet.public_subnet.id
 
@@ -151,7 +151,7 @@ resource "aws_instance" "provisioner-remoteVM"{
         type = "ssh"
         host = aws_instance.provisioner-remoteVM.public_ip
         user = "ec2-user"
-        private_key=file("${path.module}/terraform.pem")
+        private_key=file("${path.module}/terra.pem")
     }
 
 }
