@@ -1,11 +1,10 @@
+
 # Creating Internet Gateway
 
-#create Internet Gateway
+resource "aws_internet_gateway" "RB_Internet_Gateway" {
+  vpc_id = aws_vpc.RB_VPC.id
 
-resource "aws_internet_gateway" "gw" {
- vpc_id = aws_vpc.vpc-code.id
- 
- tags = {
-   Name = "RB-Internet-Gateway"
- }
+  tags = {
+    Name = "RB_Internet_Gateway"
+  }
 }

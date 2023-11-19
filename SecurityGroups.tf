@@ -1,37 +1,45 @@
-# Security Group Creation for vpc-code
 
-resource "aws_security_group" "vpc_code_sg_allow_ssh_http"{
-    name = "RB-VPC-SG"
-    vpc_id = aws_vpc.vpc-code.id
+# # Create Security Group for VPC
+
+resource "aws_security_group" "RB_VPC_SecurityGroup"{    #allow_ssh_http
+    name = "RB_VPC_SecurityGroup"
+    vpc_id = aws_vpc.RB_VPC.id
 }
+
+# #Define Ingress Rule - Inbound Rule (Inside traffic)
 
 # Ingress Security Port 22 (Inbound)
-resource "aws_security_group_rule" "ssh_ingress_access"{
+resource "aws_security_group_rule" "RB_VPCSG_SSH_INGRESS"{
     from_port = 22
-    protocol = "tcp"
-    security_group_id = aws_security_group.vpc_code_sg_allow_ssh_http.id
     to_port = 22
-    type = "ingress"
-    cidr_blocks = ["10.0.0.0/16"]
-}
-
-# Ingress Security Port 80 (Inbound)
-resource "aws_security_group_rule" "http_ingress_access"{
-    from_port = 80
     protocol = "tcp"
-    security_group_id = aws_security_group.vpc_code_sg_allow_ssh_http.id
-    to_port = 80
+    security_group_id = aws_security_group.RB_VPC_SecurityGroup.id
+    
     type = "ingress"
-    cidr_blocks = ["10.0.0.0/16"]
+    cidr_blocks = ["0.0.0.0/0"] 
 }
 
-# All egress/outbound Access
+# # Ingress Security Port 80 (Inbound)
+resource "aws_security_group_rule" "RB_VPCSG_HTTP_INGRESS"{
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    security_group_id = aws_security_group.RB_VPC_SecurityGroup.id
+    
+    type = "ingress"
+    cidr_blocks = ["0.0.0.0/0"] 
+}
 
-resource "aws_security_group_rule" "all_egress_access"{
+# #Define egress Rule - Outbound Rule (Outside traffic)
+
+# # All egress/outbound Access
+
+resource "aws_security_group_rule" "RB_VPCSG_ALL_EGRESS"{
     from_port = 0
-    protocol = "-1"
-    security_group_id = aws_security_group.vpc_code_sg_allow_ssh_http.id
     to_port = 0
+    protocol = "-1"
+    security_group_id = aws_security_group.RB_VPC_SecurityGroup.id
+
     type = "egress"
-    cidr_blocks = ["10.0.0.0/16"]
+    cidr_blocks = ["0.0.0.0/0"] 
 }

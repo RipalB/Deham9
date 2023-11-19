@@ -1,39 +1,70 @@
-#creating Public and Private Subnets
+# Creating Public Subnets
 
-variable "public_subnet_cidrs" {
- type        = list(string)
- description = "Public Subnet CIDR values"
- default     = ["10.0.1.0/24", "10.0.2.0/24"]
-}
- 
-variable "private_subnet_cidrs" {
- type        = list(string)
- description = "Private Subnet CIDR values"
- default     = ["10.0.4.0/24", "10.0.5.0/24"]
-}
+# Public Subnet-1
 
-resource "aws_subnet" "public_subnets" {
- count      = length(var.public_subnet_cidrs)
- vpc_id     = aws_vpc.vpc-code.id
- cidr_block = element(var.public_subnet_cidrs, count.index)
- 
- tags = {
-   Name = "Public Subnet"
- }
-}
- 
-resource "aws_subnet" "private_subnets" {
- count      = length(var.private_subnet_cidrs)
- vpc_id     = aws_vpc.vpc-code.id
- cidr_block = element(var.private_subnet_cidrs, count.index)
- 
- tags = {
-   Name = "Private Subnet"
- }
+resource "aws_subnet" "RB_Public_Subnet1" {
+  cidr_block              = var.cidr_block_RB_Public_Subnet1 #256 IPs
+  vpc_id                  = aws_vpc.RB_VPC.id
+  map_public_ip_on_launch = true
+  availability_zone       = data.aws_availability_zones.RB_VPC_AZS.names[0]
+  tags = {
+    Name = "RB_Public_Subnet1"
+  }
+
+  provisioner "local-exec" {
+    command = "echo RB_Public_Subnet1 = ${self.id} >> metadata"
+  }
 }
 
-variable "azs" {
- type        = list(string)
- description = "Availability Zones"
- default     = ["us-west-2a", "us-west-2b"]
+# #Public Subnet-2
+
+resource "aws_subnet" "RB_Public_Subnet2" {
+  cidr_block              = var.cidr_block_RB_Public_Subnet2
+  vpc_id                  = aws_vpc.RB_VPC.id
+  map_public_ip_on_launch = true
+  availability_zone       = data.aws_availability_zones.RB_VPC_AZS.names[1]
+
+  tags = {
+    Name = "RB_Public_Subnet2"
+  }
+
+  provisioner "local-exec" {
+    command = "echo RB_Public_Subnet2 = ${self.id} >> metadata"
+  }
+}
+
+# # Creating Private Subnets
+
+# Private Subnet-1
+resource "aws_subnet" "RB_Private_Subnet1" {
+  cidr_block              = var.cidr_block_RB_Private_Subnet1
+  vpc_id                  = aws_vpc.RB_VPC.id
+  map_public_ip_on_launch = false
+  availability_zone       = data.aws_availability_zones.RB_VPC_AZS.names[0]
+
+  tags = {
+    Name = "RB_Private_Subnet1"
+  }
+
+  provisioner "local-exec" {
+    command = "echo RB_Private_Subnet1 = ${self.id} >> metadata"
+  }
+}
+
+
+# Private Subnet-2
+
+resource "aws_subnet" "RB_Private_Subnet2" {
+  cidr_block              = var.cidr_block_RB_Private_Subnet2
+  vpc_id                  = aws_vpc.RB_VPC.id
+  map_public_ip_on_launch = false
+  availability_zone       = data.aws_availability_zones.RB_VPC_AZS.names[1]
+
+  tags = {
+    Name = "RB_Private_Subnet2"
+  }
+
+  provisioner "local-exec" {
+    command = "echo RB_Private_Subnet2 = ${self.id} >> metadata"
+  }
 }

@@ -1,46 +1,53 @@
-#creating Private Route Table
+# creating Public Route Table
+resource "aws_route_table" "RB_Public_RouteTable" {
+  vpc_id = aws_vpc.RB_VPC.id
 
-
-resource "aws_route_table" "private_route" {
- vpc_id = aws_vpc.vpc-code.id
- 
- route {
-   cidr_block = "0.0.0.0/0"
-   gateway_id = aws_internet_gateway.gw.id
- }
- 
- tags = {
-   Name = "RB-Private-RouteTable"
- }
+  route {
+    cidr_block = var.CIDR_BLOCK
+    gateway_id = aws_internet_gateway.RB_Internet_Gateway.id
+  }
+  tags = {
+    Name = "RB_Public_RouteTable"
+  }
 }
 
+# Creating Private Route Table
 
+resource "aws_route_table" "RB_Private_RouteTable" {
+  vpc_id = aws_vpc.RB_VPC.id
 
-# creating Public Route Table
-resource "aws_route_table" "public_route"{
-    vpc_id = aws_vpc.vpc-code.id
-
-    route {
-        cidr_block = "0.0.0.0/0"
-        gateway_id = aws_internet_gateway.gw.id
-    }
-    tags = {
-      Name = "RB-Public-RouteTable"  
-    }
+  route {
+    cidr_block = var.CIDR_BLOCK
+  }
+  tags = {
+    Name = "RB_Private_RouteTable"
+  }
 }
 
 #Associate Public Subnet to Public Route Table
 
-resource "aws_route_table_association" "public_subnet_asso" {
- count = length(var.public_subnet_cidrs)
- subnet_id      = element(aws_subnet.public_subnets[*].id, count.index)
- route_table_id = aws_route_table.public_route.id
+resource "aws_route_table_association" "Public_Subnet1_Asso" {
+  route_table_id = aws_route_table.RB_Public_RouteTable.id
+  subnet_id      = aws_subnet.RB_Public_Subnet1.id
+  depends_on     = [aws_route_table.RB_Public_RouteTable, aws_subnet.RB_Public_Subnet1]
+}
+
+resource "aws_route_table_association" "Public_Subnet2_Asso" {
+  route_table_id = aws_route_table.RB_Public_RouteTable.id
+  subnet_id      = aws_subnet.RB_Public_Subnet2.id
+  depends_on     = [aws_route_table.RB_Public_RouteTable, aws_subnet.RB_Public_Subnet2]
 }
 
 #Associate Private Subnet to Private Route Table
 
-resource "aws_route_table_association" "private_subnet_asso" {
- count = length(var.private_subnet_cidrs)
- subnet_id      = element(aws_subnet.private_subnets[*].id, count.index)
- route_table_id = aws_route_table.private_route.id
+resource "aws_route_table_association" "Private_Subnet1_Asso" {
+  route_table_id = aws_route_table.RB_Private_RouteTable.id
+  subnet_id      = aws_subnet.RB_Private_Subnet1.id
+  depends_on     = [aws_route_table.RB_Private_RouteTable, aws_subnet.RB_Private_Subnet1]
+}
+
+resource "aws_route_table_association" "Private_Subnet2_Asso" {
+  route_table_id = aws_route_table.RB_Private_RouteTable.id
+  subnet_id      = aws_subnet.RB_Private_Subnet2.id
+  depends_on     = [aws_route_table.RB_Private_RouteTable, aws_subnet.RB_Private_Subnet2]
 }
