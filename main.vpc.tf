@@ -11,7 +11,7 @@ resource "aws_vpc" "RB_VPC" {
   }
 
   provisioner "local-exec" {
-    command = "echo RB_VPC ID=${self.id} >> metadata"
+    command = "echo RB_VPC ID = ${self.id} >> metadata"
   }
 }
 

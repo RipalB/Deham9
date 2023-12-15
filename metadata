@@ -1,0 +1,10 @@
+RB_VPC ID = vpc-04ddcdaa60f59e17c
+RB_Private_Subnet1 = subnet-005e23caf1ffd0852
+RB_Private_Subnet2 = subnet-06d1aef1a68412b8b
+RB_VPC_SecurityGroup ID = sg-031ebf35308d39129
+RB_Public_RouteTable ID = rtb-04421316bca955297
+RB_Public_Subnet2 = subnet-07d9eaafdb65331c7
+RB_Public_Subnet1 = subnet-0d84b25b5bb981794
+rb-lb-targetgroup ID = arn:aws:elasticloadbalancing:us-west-2:045366182215:targetgroup/rb-lb-tg/a587318755e067cb
+RB_loadBalancer ID = arn:aws:elasticloadbalancing:us-west-2:045366182215:loadbalancer/app/rb-loadBalancer/30293134bfa4332a
+rb-listener ID = arn:aws:elasticloadbalancing:us-west-2:045366182215:listener/app/rb-loadBalancer/30293134bfa4332a/abca2e5095e1d4b8

@@ -9,6 +9,10 @@ resource "aws_route_table" "RB_Public_RouteTable" {
   tags = {
     Name = "RB_Public_RouteTable"
   }
+
+  provisioner "local-exec" {
+    command = "echo RB_Public_RouteTable ID = ${self.id} >> metadata"
+  }
 }
 
 # Creating Private Route Table
@@ -18,9 +22,13 @@ resource "aws_route_table" "RB_Private_RouteTable" {
 
   route {
     cidr_block = var.CIDR_BLOCK
+    gateway_id = "local"
   }
   tags = {
     Name = "RB_Private_RouteTable"
+  }
+  provisioner "local-exec" {
+    command = "echo RB_Private_RouteTable ID = ${self.id} >> metadata"
   }
 }
 
