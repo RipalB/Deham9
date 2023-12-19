@@ -1,10 +1,10 @@
-import datetime
+# import datetime
 
-current_year = datetime.datetime.now().year
+# current_year = datetime.datetime.now().year
 
-print("Enter your birth year: ")
-birth_year = int(input())
+# print("Enter your birth year: ")
+# birth_year = int(input())
 
-age = current_year - birth_year
+# age = current_year - birth_year
 
-print("Your age is: ", age)
+# print("Your age is: ", age)
